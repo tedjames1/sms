@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>前端项目示例</title>
+    <meta charset="UTF-8">
+    <script>
+        function getData() {
+
+            document.getElementById("result").innerHTML = "";
+
+
+            var id = document.getElementById("phone").value; // 获取输入框中的 ID 值
+            var url = "http://192.168.43.185:8888/api/v1/sms/" + id + "?count=10"; // 替换成您的服务器 URL
+            fetch(url, {
+                timeout: 3000 // 设置超时时间，单位为毫秒
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // 将返回的数据展示在网页上，假设数据是一个名为 data 的对象
+
+                    var contents = data.contents;
+
+                    var result = "数据：<br>";
+
+                    // 遍历数组并将每个元素添加到结果中
+                    contents.forEach(item => {
+                        result += item + "<br>";
+                    });
+
+                    console.log(result);
+                    document.getElementById("result").innerHTML = result;
+                })
+                .catch(error => {
+                    console.error("发生错误:", error);
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>前端项目示例</h1>
+    <input type="text" id="phone" style="width: 300px;" placeholder="输入手机号码后 4 位，例如：6789">
+</br>
+</br>
+</br>
+</br>
+    <button onclick="getData()">获取数据</button>
+    <div id="result"></div>
+</body>
+
+</html>
