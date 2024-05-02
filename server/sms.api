@@ -1,0 +1,35 @@
+syntax = "v1"
+
+type (
+	GetSmsReq {
+		Phone string `path:"phone"`
+		Count int    `form:"count,optional,default=1"`
+	}
+	GetSmsResp {
+		Contents []string `json:"contents"`
+	}
+	PutSmsReq {
+		Phone   string `path:"phone"`
+		Content string `json:"content"`
+	}
+	PutSmsResp struct{}
+)
+
+// @server 语法块主要用于控制对 HTTP 服务生成时 meta 信息，目前支持功能有：
+// 1. 路由分组
+// 2. 中间件声明
+// 3. 路由前缀
+// 4. 超时配置
+// 所有声明仅对当前 service 中的路由有效
+@server (
+	prefix:     /api/v1
+	signature:  true
+	timeout: 3s
+)
+service sms {
+	@handler postSms
+	post /sms/:phone (PutSmsReq) returns (PutSmsResp)
+
+	@handler getSms
+	get /sms/:phone (GetSmsReq) returns (GetSmsResp)
+}
