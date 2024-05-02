@@ -11,7 +11,7 @@
 
 
             var id = document.getElementById("phone").value; // 获取输入框中的 ID 值
-            var url = "http://192.168.43.185:8888/api/v1/sms/" + id + "?count=10"; // 替换成您的服务器 URL
+            var url = "http://localhost:8888/api/v1/sms/" + id + "?count=10"; // 替换成您的服务器 URL
             fetch(url, {
                 timeout: 3000 // 设置超时时间，单位为毫秒
             })
