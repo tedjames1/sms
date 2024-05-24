@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             // 获取本机号码
             TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             MyApplication.phone = telephonyManager.getLine1Number();
-            ((TextView)findViewById(R.id.tvPhone)).setText(MyApplication.phone);
+            ((TextView) findViewById(R.id.tvPhone)).setText(MyApplication.phone);
         } else {
             // 请求获取READ_PHONE_STATE权限
             requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
@@ -71,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
 
         // for test
         findViewById(R.id.main).setOnClickListener(view -> {
+
+            String phone = MyApplication.phone;
+            if (phone == null || phone.length() == 0) {
+                Toast.makeText(this, "Please insert sim card", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             new Thread(() -> {
                 String log = SmsPoster.postToServer(getApplicationContext(), "your code is 1234");
@@ -120,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             // 获取本机号码
             TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             MyApplication.phone = telephonyManager.getLine1Number();
-            ((TextView)findViewById(R.id.tvPhone)).setText(MyApplication.phone);
+            ((TextView) findViewById(R.id.tvPhone)).setText(MyApplication.phone);
         }
     }
 
