@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="http://192.168.0.110:8888" />
+            android:text="http://192.168.50.242:8888" />
     </LinearLayout>
 
 <!--    <LinearLayout-->
